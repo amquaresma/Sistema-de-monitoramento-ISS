@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ISS Monitor - Sistema de Gerenciamento de Experimentos</title>
+    <meta
+      name="description"
+      content="Sistema de monitoramento e recuperação de experimentos científicos da Estação Espacial Internacional após impacto de meteoro."
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="starField" class="star-field"></div>
+    <nav id="navbar" class="navbar">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <div class="nav-logo">
+            <i class="fas fa-satellite"></i>
+          </div>
+          <div class="nav-info">
+            <h1 class="nav-title">ISS Monitor</h1>
+            <p class="nav-subtitle">Estação Espacial Internacional</p>
+          </div>
+        </div>
+
+        <div class="nav-menu" id="navMenu">
+          <a href="#home" class="nav-link active" data-page="home">
+            <i class="fas fa-home"></i>
+            <span>Início</span>
+          </a>
+          <a href="#experiments" class="nav-link" data-page="experiments">
+            <i class="fas fa-flask"></i>
+            <span>Experimentos</span>
+          </a>
+          <a href="#tasks" class="nav-link" data-page="tasks">
+            <i class="fas fa-tasks"></i>
+            <span>Tarefas</span>
+          </a>
+          <a href="#statistics" class="nav-link" data-page="statistics">
+            <i class="fas fa-chart-bar"></i>
+            <span>Estatísticas</span>
+          </a>
+          <a href="#astronauts" class="nav-link" data-page="astronauts">
+            <i class="fas fa-user-astronaut"></i>
+            <span>Astronautas</span>
+          </a>
+          <a href="#nasa" class="nav-link" data-page="nasa">
+            <i class="fas fa-satellite-dish"></i>
+            <span>Dados Espaciais</span>
+          </a>
+        </div>
+
+        <button class="nav-toggle" id="navToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="mainContent" class="main-content">
+      <!-- Home Page -->
+      <section id="homePage" class="page active">
+        <div class="hero-container">
+          <div class="hero-image animate-float">
+            <img
+              src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+              alt="Estação Espacial Internacional orbitando a Terra"
+              class="iss-image"
+            />
+          </div>
+
+          <h1 class="hero-title">BEM-VINDO À ISS</h1>
+
+          <p class="hero-subtitle">
+            Sistema de Monitoramento de Experimentos Científicos<br />
+            <span>Estação Espacial Internacional</span>
+          </p>
+
+          <div class="alert-card glass-effect">
+            <h2 class="alert-title">
+              <i class="fas fa-exclamation-triangle"></i>
+              🚨 ALERTA CRÍTICO
+            </h2>
+            <p class="alert-description">
+              Um meteoro colidiu com a ISS, danificando estruturas críticas.
+              Diversos experimentos científicos internacionais podem ter sido
+              comprometidos. O
+              <strong>Instituto Alpha Lumen</strong> desenvolveu este sistema
+              para avaliar danos e coordenar recuperação.
+            </p>
+
+            <div class="status-grid">
+              <div class="status-item status-critical">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Status Crítico</h3>
+                <p>Experimentos danificados necessitam intervenção imediata</p>
+              </div>
+              <div class="status-item status-active">
+                <i class="fas fa-microscope"></i>
+                <h3>Projetos Ativos</h3>
+                <p>Monitoramento em tempo real dos experimentos</p>
+              </div>
+              <div class="status-item status-recovery">
+                <i class="fas fa-wrench"></i>
+                <h3>Recuperação</h3>
+                <p>Sistema de tarefas para restaurar experimentos</p>
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="cta-button animate-glow"
+            onclick="showPage('experiments')"
+          >
+            <i class="fas fa-satellite"></i>
+            INICIAR MONITORAMENTO
+            <i class="fas fa-arrow-right"></i>
+          </button>
+
+          <div class="attribution">
+            Background por
+            <a
+              href="https://br.freepik.com/vetores-gratis/fundo-gradiente-de-galaxia_14658088.htm"
+              target="_blank"
+              >Freepik</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- Experiments Page -->
+      <section id="experimentsPage" class="page">
+        <div class="page-container">
+          <h1 class="page-title">
+            <i class="fas fa-flask"></i>
+            Experimentos Científicos
+          </h1>
+
+          <!-- Search and Filters -->
+          <div class="search-section">
+            <div class="search-bar">
+              <i class="fas fa-search"></i>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Pesquisar experimentos..."
+              />
+            </div>
+
+            <div class="filters">
+              <div class="filter-group">
+                <button class="filter-btn active" data-status="all">
+                  Todos
+                </button>
+                <button class="filter-btn" data-status="intacto">
+                  Intactos
+                </button>
+                <button class="filter-btn" data-status="danificado">
+                  Danificados
+                </button>
+              </div>
+
+              <select id="countryFilter" class="filter-select">
+                <option value="">Todos os Países</option>
+              </select>
+
+              <select id="categoryFilter" class="filter-select">
+                <option value="">Todas as Categorias</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Statistics Overview -->
+          <div class="stats-grid" id="experimentsStats">
+            <div class="stat-card glass-effect">
+              <div class="stat-number" id="totalExperiments">0</div>
+              <div class="stat-label enhanced-label">Total</div>
+            </div>
+            <div
+              class="stat-card glass-effect clickable-stat"
+              onclick="openExperimentListModal('intacto')"
+            >
+              <div class="stat-number stat-intact" id="intactExperiments">
+                0
+              </div>
+              <div class="stat-label enhanced-label">Intactos</div>
+            </div>
+            <div
+              class="stat-card glass-effect clickable-stat"
+              onclick="openExperimentListModal('danificado')"
+            >
+              <div class="stat-number stat-damaged" id="damagedExperiments">
+                0
+              </div>
+              <div class="stat-label enhanced-label">Danificados</div>
+            </div>
+            <div
+              class="stat-card glass-effect clickable-stat"
+              onclick="openExperimentListModal('reparado')"
+            >
+              <div class="stat-number stat-repaired" id="repairedExperiments">
+                0
+              </div>
+              <div class="stat-label enhanced-label">Reparados</div>
+            </div>
+            <div class="stat-card glass-effect">
+              <div class="stat-number" id="recoveryProgress">0%</div>
+              <div class="stat-label enhanced-label">Recuperação</div>
+            </div>
+          </div>
+
+          <!-- Experiments Grid -->
+          <div class="experiments-grid" id="experimentsGrid"></div>
+
+          <!-- Pagination -->
+          <div class="pagination" id="pagination"></div>
+        </div>
+      </section>
+
+      <!-- Tasks Page -->
+      <section id="tasksPage" class="page">
+        <div class="page-container">
+          <h1 class="page-title">
+            <i class="fas fa-tasks"></i>
+            Sistema de Recuperação
+          </h1>
+
+          <!-- Task Statistics -->
+          <div class="stats-grid" id="taskStats">
+            <div class="stat-card glass-effect">
+              <div class="stat-number" id="totalTasks">0</div>
+              <div class="stat-label">Total</div>
+            </div>
+            <div class="stat-card glass-effect">
+              <div class="stat-number" id="criticalTasks">0</div>
+              <div class="stat-label">Críticas</div>
+            </div>
+            <div class="stat-card glass-effect">
+              <div class="stat-number" id="pendingTasks">0</div>
+              <div class="stat-label">Pendentes</div>
+            </div>
+            <div class="stat-card glass-effect">
+              <div class="stat-number" id="completedTasks">0</div>
+              <div class="stat-label">Concluídas</div>
+            </div>
+          </div>
+
+          <div class="tasks-layout">
+            <!-- Critical Tasks -->
+            <div class="task-section critical-section">
+              <h2 class="section-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Tarefas Críticas
+              </h2>
+              <div class="task-list" id="criticalTasksList"></div>
+            </div>
+
+            <!-- Completed Tasks -->
+            <div class="task-section completed-section">
+              <h2 class="section-title">
+                <i class="fas fa-check-circle"></i>
+                Tarefas Concluídas
+              </h2>
+              <div class="task-list" id="completedTasksList"></div>
+            </div>
+          </div>
+
+          <!-- Pending Tasks -->
+          <div class="task-section pending-section">
+            <h2 class="section-title">
+              <i class="fas fa-clock"></i>
+              Outras Tarefas Pendentes
+            </h2>
+            <div class="task-list" id="pendingTasksList"></div>
+          </div>
+
+          <!-- Recovery Progress -->
+          <div class="recovery-overview glass-effect">
+            <h2 class="section-title">Progresso Geral de Recuperação</h2>
+            <div class="recovery-grid" id="recoveryGrid"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Statistics Page -->
+      <section id="statisticsPage" class="page">
+        <div class="page-container">
+          <h1 class="page-title">
+            <i class="fas fa-chart-bar"></i>
+            Estatísticas da Missão
+          </h1>
+
+          <!-- Main Stats -->
+          <div class="stats-grid">
+            <div class="stat-card glass-effect">
+              <i class="fas fa-globe stat-icon"></i>
+              <div class="stat-number" id="countriesCount">0</div>
+              <div class="stat-label">Países Envolvidos</div>
+            </div>
+            <div class="stat-card glass-effect">
+              <i class="fas fa-clock stat-icon"></i>
+              <div class="stat-number">48h</div>
+              <div class="stat-label">Tempo Crítico</div>
+            </div>
+            <div class="stat-card glass-effect">
+              <i class="fas fa-users stat-icon"></i>
+              <div class="stat-number">6</div>
+              <div class="stat-label">Astronautas</div>
+            </div>
+            <div class="stat-card glass-effect">
+              <i class="fas fa-dollar-sign stat-icon"></i>
+              <div class="stat-number">2.4B</div>
+              <div class="stat-label">Valor dos Experimentos (USD)</div>
+            </div>
+          </div>
+
+          <!-- Charts Section -->
+          <div class="charts-grid">
+            <div class="chart-card glass-effect">
+              <h3 class="chart-title">Status dos Experimentos</h3>
+              <div class="chart-content" id="experimentsChart"></div>
+            </div>
+
+            <div class="chart-card glass-effect">
+              <h3 class="chart-title">Status das Tarefas</h3>
+              <div class="chart-content" id="tasksChart"></div>
+            </div>
+          </div>
+
+          <!-- Countries Grid -->
+          <div class="countries-section glass-effect">
+            <h3 class="section-title">Experimentos por País</h3>
+            <div class="countries-grid" id="countriesGrid"></div>
+          </div>
+
+          <!-- Mission Timeline -->
+          <div class="timeline-section glass-effect">
+            <h3 class="section-title">Linha do Tempo da Missão</h3>
+            <div class="timeline" id="missionTimeline"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Astronauts Page -->
+      <section id="astronautsPage" class="page">
+        <div class="page-container">
+          <h1 class="page-title">
+            <i class="fas fa-user-astronaut"></i>
+            Tripulação da ISS
+          </h1>
+
+          <!-- Astronauts Overview -->
+          <div class="astronauts-overview">
+            <div class="stats-grid">
+              <div class="stat-card glass-effect">
+                <i class="fas fa-users stat-icon"></i>
+                <div class="stat-number" id="totalAstronauts">6</div>
+                <div class="stat-label">Astronautas Ativos</div>
+              </div>
+              <div class="stat-card glass-effect">
+                <i class="fas fa-flag stat-icon"></i>
+                <div class="stat-number" id="astronautNationalities">5</div>
+                <div class="stat-label">Nacionalidades</div>
+              </div>
+              <div class="stat-card glass-effect">
+                <i class="fas fa-medal stat-icon"></i>
+                <div class="stat-number" id="totalMissions">11</div>
+                <div class="stat-label">Missões Totais</div>
+              </div>
+              <div class="stat-card glass-effect">
+                <i class="fas fa-clock stat-icon"></i>
+                <div class="stat-number" id="avgExperience">8.7</div>
+                <div class="stat-label">Anos Exp. Média</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Astronauts Grid -->
+          <div class="astronauts-grid" id="astronautsGrid"></div>
+
+          <!-- Station Map -->
+          <div class="station-map glass-effect">
+            <h3 class="section-title">
+              <i class="fas fa-map"></i>
+              Localização na Estação
+            </h3>
+            <div class="station-layout" id="stationLayout"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NASA APIs Page -->
+      <section id="nasaPage" class="page">
+        <div class="page-container">
+          <h1 class="page-title">
+            <i class="fas fa-satellite-dish"></i>
+            Centro de Dados NASA
+          </h1>
+
+          <!-- API Status -->
+          <div class="api-status glass-effect">
+            <h3 class="section-title">
+              <i class="fas fa-signal"></i>
+              Status das APIs
+            </h3>
+            <div class="api-indicators">
+              <div class="api-indicator" id="apodStatus">
+                <div class="status-dot"></div>
+                <span>APOD - Imagem do Dia</span>
+              </div>
+              <div class="api-indicator" id="marsStatus">
+                <div class="status-dot"></div>
+                <span>Mars Rover Photos</span>
+              </div>
+              <div class="api-indicator" id="neoStatus">
+                <div class="status-dot"></div>
+                <span>Near Earth Objects</span>
+              </div>
+              <div class="api-indicator" id="spaceWeatherStatus">
+                <div class="status-dot"></div>
+                <span>Space Weather</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- NASA Data Sections -->
+          <div class="nasa-sections">
+            <!-- APOD Section -->
+            <div class="nasa-section glass-effect">
+              <h3 class="section-title">
+                <i class="fas fa-camera"></i>
+                Imagem Astronômica do Dia
+              </h3>
+              <div class="apod-content" id="apodContent">
+                <div class="loading-placeholder">
+                  <i class="fas fa-spinner fa-spin"></i>
+                  <p>Carregando imagem do dia...</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mars Photos Section -->
+            <div class="nasa-section glass-effect">
+              <h3 class="section-title">
+                <i class="fas fa-planet-mars"></i>
+                Fotos de Marte - Rover Curiosity
+              </h3>
+              <div class="mars-photos" id="marsPhotos">
+                <div class="loading-placeholder">
+                  <i class="fas fa-spinner fa-spin"></i>
+                  <p>Carregando fotos de Marte...</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Near Earth Objects -->
+            <div class="nasa-section glass-effect">
+              <h3 class="section-title">
+                <i class="fas fa-meteor"></i>
+                Objetos Próximos à Terra
+              </h3>
+              <div class="neo-content" id="neoContent">
+                <div class="loading-placeholder">
+                  <i class="fas fa-spinner fa-spin"></i>
+                  <p>Carregando dados de asteroides...</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Space Weather -->
+            <div class="nasa-section glass-effect">
+              <h3 class="section-title">
+                <i class="fas fa-sun"></i>
+                Clima Espacial
+              </h3>
+              <div class="space-weather" id="spaceWeather">
+                <div class="loading-placeholder">
+                  <i class="fas fa-spinner fa-spin"></i>
+                  <p>Carregando dados do clima espacial...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- API Settings -->
+          <div class="api-settings glass-effect">
+            <h3 class="section-title">
+              <i class="fas fa-cog"></i>
+              Configurações da API
+            </h3>
+            <div class="settings-form">
+              <div class="form-group">
+                <label for="nasaApiKey">Chave da API NASA:</label>
+                <input
+                  type="text"
+                  id="nasaApiKey"
+                  placeholder="Insira sua chave da API NASA"
+                  value="DEMO_KEY"
+                />
+                <small
+                  >Obtenha sua chave gratuita em
+                  <a href="https://api.nasa.gov/" target="_blank"
+                    >api.nasa.gov</a
+                  ></small
+                >
+              </div>
+              <button class="btn btn-primary" onclick="updateNASAApiKey()">
+                <i class="fas fa-save"></i>
+                Salvar Configuração
+              </button>
+              <button class="btn btn-secondary" onclick="refreshNASAData()">
+                <i class="fas fa-sync"></i>
+                Atualizar Dados
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Astronauts Page -->
+      <section id="astronautsPage" class="page">
+        <div class="page-container">
+          <h1 class="page-title">
+            <i class="fas fa-user-astronaut"></i>
+            Gerenciamento de Astronautas
+          </h1>
+
+          <!-- Astronaut Statistics -->
+          <div class="stats-grid">
+            <div class="stat-card glass-effect">
+              <i class="fas fa-users stat-icon"></i>
+              <div class="stat-number" id="totalAstronauts">6</div>
+              <div class="stat-label">Total de Astronautas</div>
+            </div>
+            <div class="stat-card glass-effect">
+              <i class="fas fa-clipboard-check stat-icon"></i>
+              <div class="stat-number" id="astronautTasksCompleted">0</div>
+              <div class="stat-label">Tarefas Concluídas</div>
+            </div>
+            <div class="stat-card glass-effect">
+              <i class="fas fa-clock stat-icon"></i>
+              <div class="stat-number" id="astronautTasksPending">0</div>
+              <div class="stat-label">Tarefas Pendentes</div>
+            </div>
+            <div class="stat-card glass-effect">
+              <i class="fas fa-flask stat-icon"></i>
+              <div class="stat-number" id="astronautExperiments">0</div>
+              <div class="stat-label">Experimentos Ativos</div>
+            </div>
+          </div>
+
+          <!-- Astronauts Grid -->
+          <div class="astronauts-grid" id="astronautsGrid"></div>
+        </div>
+      </section>
+
+      <!-- NASA Data Page -->
+      <section id="nasa-dataPage" class="page">
+        <div class="page-container">
+          <h1 class="page-title">
+            <i class="fas fa-rocket"></i>
+            Dados da NASA
+          </h1>
+
+          <!-- NASA API Status -->
+          <div class="nasa-status glass-effect">
+            <h3 class="section-title">Status das APIs</h3>
+            <div class="api-status-grid" id="apiStatusGrid">
+              <div class="api-status-item">
+                <i class="fas fa-image"></i>
+                <span>APOD - Imagem do Dia</span>
+                <span class="status-indicator" id="apodStatus"
+                  >Carregando...</span
+                >
+              </div>
+              <div class="api-status-item">
+                <i class="fas fa-globe"></i>
+                <span>Mars Rover Photos</span>
+                <span class="status-indicator" id="marsStatus"
+                  >Carregando...</span
+                >
+              </div>
+              <div class="api-status-item">
+                <i class="fas fa-meteor"></i>
+                <span>Near Earth Objects</span>
+                <span class="status-indicator" id="neoStatus"
+                  >Carregando...</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- APOD Section -->
+          <div class="nasa-section glass-effect">
+            <h3 class="section-title">
+              <i class="fas fa-image"></i>
+              Imagem Astronômica do Dia
+            </h3>
+            <div id="apodContainer" class="apod-container">
+              <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Carregando imagem do dia...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mars Photos Section -->
+          <div class="nasa-section glass-effect">
+            <h3 class="section-title">
+              <i class="fas fa-globe"></i>
+              Fotos de Marte - Curiosity Rover
+            </h3>
+            <div id="marsContainer" class="mars-container">
+              <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Carregando fotos de Marte...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Near Earth Objects Section -->
+          <div class="nasa-section glass-effect">
+            <h3 class="section-title">
+              <i class="fas fa-meteor"></i>
+              Objetos Próximos à Terra
+            </h3>
+            <div id="neoContainer" class="neo-container">
+              <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Carregando dados de asteroides...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- API Key Configuration -->
+          <div class="nasa-config glass-effect">
+            <h3 class="section-title">
+              <i class="fas fa-key"></i>
+              Configuração da API
+            </h3>
+            <div class="config-form">
+              <div class="form-group">
+                <label for="nasaApiKey">Chave da API NASA (opcional)</label>
+                <input
+                  type="text"
+                  id="nasaApiKey"
+                  placeholder="Sua chave da API NASA ou deixe em branco para usar DEMO_KEY"
+                />
+                <small
+                  >Obtenha sua chave gratuita em:
+                  <a href="https://api.nasa.gov/" target="_blank"
+                    >api.nasa.gov</a
+                  ></small
+                >
+              </div>
+              <button onclick="updateNasaApiKey()" class="btn btn-primary">
+                <i class="fas fa-save"></i>
+                Salvar Configuração
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Experiment Modal -->
+    <div id="experimentModal" class="modal">
+      <div class="modal-content glass-effect">
+        <div class="modal-header">
+          <h2 id="modalTitle" class="modal-title"></h2>
+          <button class="modal-close" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+      </div>
+    </div>
+
+    <!-- Task Form Modal -->
+    <div id="taskModal" class="modal">
+      <div class="modal-content glass-effect">
+        <div class="modal-header">
+          <h2 class="modal-title">Adicionar Nova Tarefa</h2>
+          <button class="modal-close" onclick="closeTaskModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="taskForm" class="task-form">
+            <div class="form-group">
+              <label for="taskTitle">Título da Tarefa *</label>
+              <input type="text" id="taskTitle" required />
+            </div>
+            <div class="form-group">
+              <label for="taskDescription">Descrição</label>
+              <textarea id="taskDescription" rows="3"></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="taskPriority">Prioridade</label>
+                <select id="taskPriority">
+                  <option value="baixa">Baixa</option>
+                  <option value="média" selected>Média</option>
+                  <option value="alta">Alta</option>
+                  <option value="crítica">Crítica</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="taskAssignee">Responsável</label>
+                <input
+                  type="text"
+                  id="taskAssignee"
+                  placeholder="Nome do astronauta"
+                />
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">
+                Criar Tarefa
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="closeTaskModal()"
+              >
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
